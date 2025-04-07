@@ -1,16 +1,13 @@
 import React from "react";
 import "./App.css";
-// import logo from "../src/images/logo.png"
+import Logos from "./images/Logos.png";
 import Weather from "./Weather";
 
 function App() {
   return (
     <>
       <div className="weather-app body">
-      {/* <a href="https://www.shecodes.io/" target="_blank" rel="noopener noreferrer">
-      <img class="logo" alt="SheCodes Logo" src="/images/logo.png" />
-      <logo />
-      </a> */}
+        <img src={Logos} alt="SheCodes Logo" className="logo" />
         <Weather defaultCity="Miami" />
 
         <footer className="weather-footer">

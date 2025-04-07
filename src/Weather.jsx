@@ -13,28 +13,28 @@ const Weather = (props) => {
     setDisplay(true);
 
     setUpdateWeather({
-      temperature: response.data.temperature.current,
-      city: response.data.city,
-      date: new Date(response.data.time * 1000),
-      humidity: response.data.temperature.humidity,
+      temperature: response.data.main.temp,
+      city: response.data.name,
+      date: new Date(response.data.dt * 1000),
+      humidity: response.data.main.humidity,
       wind: response.data.wind.speed,
-      description: response.data.condition.description,
-      icon: response.data.condition.icon_url,
+      description: response.data.weather[0].description,
+      icon: response.data.weather[0].icon,
     });
   }
-  function handleSearch(){
-    let apiKey = "8703ffd45fec607afo9ae4ed13140bt8";
-    let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
+  function handleSearch() {
+    let apiKey = "923547b647729c17b92586beaa08e99c";
+    let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
 
     axios.get(apiUrl).then(handleTemperature);
   }
 
   function showTemperature(event) {
     event.preventDefault();
-    handleSearch()
+    handleSearch();
   }
 
-  function updateCity(event){
+  function updateCity(event) {
     setCity(event.target.value);
   }
 
@@ -63,7 +63,7 @@ const Weather = (props) => {
       </>
     );
   } else {
-    handleSearch()
+    handleSearch();
     return <p> Loading...</p>;
   }
 };
