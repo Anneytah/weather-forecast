@@ -2,6 +2,8 @@ import React from "react";
 import { useState } from "react";
 import axios from "axios";
 import WeatherInfo from "./WeatherInfo";
+// import WeatherForecast from "./WeatherForecast";
+import WeatherForecasts from "./WeatherForecasts";
 
 const Weather = (props) => {
   const [city, setCity] = useState(props.defaultCity);
@@ -9,7 +11,6 @@ const Weather = (props) => {
   const [updateWeather, setUpdateWeather] = useState("");
 
   function handleTemperature(response) {
-    console.log(response.data);
     setDisplay(true);
 
     setUpdateWeather({
@@ -20,6 +21,7 @@ const Weather = (props) => {
       wind: response.data.wind.speed,
       description: response.data.weather[0].description,
       icon: response.data.weather[0].icon,
+      coordinate: response.data.coord,
     });
   }
   function handleSearch() {
@@ -60,6 +62,8 @@ const Weather = (props) => {
         </header>
 
         <WeatherInfo data={updateWeather} />
+        {/* <WeatherForecast forecast={updateWeather.coordinate}/> */}
+        <WeatherForecasts forecast={updateWeather.coordinate}/>
       </>
     );
   } else {

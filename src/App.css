@@ -93,6 +93,7 @@ strong {
 
 .weather-day {
   display: block;
+  
 }
 
 .weather-date {
@@ -105,7 +106,7 @@ strong {
 .weather-image {
   font-size: 16px;
   text-align: center;
-  /* padding: 10px; */
+  padding: 10px;
 }
 .temperatures {
   display: flex;

@@ -27,7 +27,7 @@ const WeatherInfo = (props) => {
             </div>
             <div className="weather-temperature-body">
               <div className= "icon">
-                <WeatherIcon code={props.data.icon}/>
+                <WeatherIcon code={props.data.icon} size={64}/>
               </div>
               <WeatherTemperature celsius = {props.data.temperature} />
             </div>
