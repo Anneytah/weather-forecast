@@ -15,11 +15,11 @@ const ForecastDate = (props) => {
 
   return (
     <div>
-        <div className="weather-date">{day()}</div>
-            <div className="weather-image">
-              {<WeatherIcon code={props.list.weather[0].icon} size={56} />}
+        <div className="font-extralight mx-auto text-center text-[#c0bdc5]">{day()}</div>
+            <div className="text-center px-5 p-2">
+              {<WeatherIcon code={props.list.weather[0].icon} size={45}  />}
             </div>
-            <div className="temperatures">
+            <div className="flex justify-center text-[#f65282]">
               <div className="temperature-unit">
                 <strong>{Math.round(props.list.main.temp_max)}&deg;</strong>
               </div>

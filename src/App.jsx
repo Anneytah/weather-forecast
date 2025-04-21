@@ -5,8 +5,8 @@ import Weather from "./Weather";
 
 function App() {
   return (
-    <>
-      <div className="weather-app body">
+    <div className="bg-[#f8f7fd] overflow-hidden">
+      <div className="weather-app body bg-white m-16 mx-auto max-w-3xl">
         <img src={Logos} alt="SheCodes Logo" className="logo" />
         <Weather defaultCity="Miami" />
 
@@ -28,7 +28,7 @@ function App() {
           </a>
         </footer>
       </div>
-    </>
+    </div>
   );
 }
 

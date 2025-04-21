@@ -50,7 +50,7 @@ const WeatherForecasts = (props) => {
   }
 
   return (
-    <div className="weather-forcasts">
+    <div className="weather-forcasts grid grid-cols-3 sm:grid-cols-2 md:grid-cols-5 lg:grid-cols-5 xl:grid-cols-5 gap-4">
       {forecastData.map((dailyForecast, index) => (
         <div className="weather-day" key={index}>
           <ForecastDate list={dailyForecast} />

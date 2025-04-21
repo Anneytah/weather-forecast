@@ -14,7 +14,7 @@ const WeatherTemperature = (props) => {
 
   if (unit == "celsius") {
     return (
-      <div className="weather-temperature-body">
+      <div className="flex">
         <div className="weather-temperature">{Math.round(props.celsius)}</div>
         <div className="weather-app-unit">
           &deg;C{" "}
@@ -27,7 +27,7 @@ const WeatherTemperature = (props) => {
   } else {
     let farenheit = (props.celsius * 9) / 5 + 32;
     return (
-      <div className="weather-temperature-body">
+      <div className="flex">
         <div className="weather-temperature">{Math.round(farenheit)}</div>
         <div className="weather-app-unit">
           <a href="/" onClick={showCelsius}>

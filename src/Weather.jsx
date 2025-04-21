@@ -44,19 +44,19 @@ const Weather = (props) => {
     return (
       <>
         <header>
-          <form onSubmit={showTemperature}>
+          <form onSubmit={showTemperature} className="max-w-screen sm:max-w-full flex">
             <input
               type="search"
               placeholder="Enter a city.."
               required
-              className="weather-form-search"
+              className="p-4 my-2 mx-2 border-gray-300 rounded-lg w-full bg-[#f8f7fd]"
               onChange={updateCity}
             />
             <input
               type="submit"
               value="Search"
               required
-              className="weather-form-submit"
+              className="w-45 my-2 mx-2 bg-[#885ef2] sm:text-base text-white font-semibold  rounded-lg hover:bg-blue-600 transition-colors"
             />
           </form>
         </header>
