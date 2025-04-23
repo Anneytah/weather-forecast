@@ -7,7 +7,7 @@ const WeatherInfo = (props) => {
   return (
     <div>
       <main>
-        <div className="flex justify-between flex-col md:flex-row gap-4">
+        <div className="flex justify-between flex-col md:flex-row gap-8">
           <div>
             <h1 className="font-bold text-4xl m-0">{props.data.city}</h1>
             <div className="time">

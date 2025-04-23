@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import WeatherInfo from "./WeatherInfo";
 // import WeatherForecast from "./WeatherForecast";
@@ -9,9 +9,42 @@ const Weather = (props) => {
   const [city, setCity] = useState(props.defaultCity);
   const [display, setDisplay] = useState(false);
   const [updateWeather, setUpdateWeather] = useState("");
+  const [error, setError] = useState(null);
+
+
+  useEffect(() => {
+    // Check for geolocation support
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          let apiKey = "923547b647729c17b92586beaa08e99c";
+          let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`;
+  
+          axios.get(apiUrl)
+            .then(handleTemperature)
+            .catch(() => {
+              // If location request fails, fallback to default city
+              handleSearch();
+            });
+        },
+        (error) => {
+          // If permission denied or any error, fallback to default city
+          handleSearch();
+        }
+      );
+    } else {
+      // If geolocation is not supported, fallback to default city
+      handleSearch();
+    }
+  }, []);
+  
+
+
 
   function handleTemperature(response) {
     setDisplay(true);
+    setError(null);
 
     setUpdateWeather({
       temperature: response.data.main.temp,
@@ -28,7 +61,14 @@ const Weather = (props) => {
     let apiKey = "923547b647729c17b92586beaa08e99c";
     let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
 
-    axios.get(apiUrl).then(handleTemperature);
+    axios
+      .get(apiUrl)
+      .then(handleTemperature)
+      .catch(() => {
+        setError("City doesn't exist! Enter a Valid city.");
+        setUpdateWeather(null);
+        setDisplay(true);
+      });
   }
 
   function showTemperature(event) {
@@ -38,13 +78,17 @@ const Weather = (props) => {
 
   function updateCity(event) {
     setCity(event.target.value);
+    setError(null);
   }
 
   if (display) {
     return (
       <>
         <header>
-          <form onSubmit={showTemperature} className="max-w-screen sm:max-w-full flex">
+          <form
+            onSubmit={showTemperature}
+            className="max-w-screen sm:max-w-full flex"
+          >
             <input
               type="search"
               placeholder="Enter a city.."
@@ -56,14 +100,21 @@ const Weather = (props) => {
               type="submit"
               value="Search"
               required
-              className="w-45 my-2 mx-2 bg-[#885ef2] sm:text-base text-white font-semibold  rounded-lg hover:bg-blue-600 transition-colors"
+              className="w-45 cursor-pointer my-2 mx-2 bg-[#885ef2] sm:text-base text-white font-semibold  rounded-lg hover:bg-[#aa94eb] transition-colors"
             />
           </form>
         </header>
 
-        <WeatherInfo data={updateWeather} />
-        {/* <WeatherForecast forecast={updateWeather.coordinate}/> */}
-        <WeatherForecasts forecast={updateWeather.coordinate}/>
+        {error && (
+          <p className="text-[#885ef2] text-lg font-medium py-5">{error}</p>
+        )}
+
+        {updateWeather && (
+          <>
+            <WeatherInfo data={updateWeather} />
+            <WeatherForecasts forecast={updateWeather.coordinate} />
+          </>
+        )}
       </>
     );
   } else {

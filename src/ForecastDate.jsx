@@ -15,8 +15,8 @@ const ForecastDate = (props) => {
 
   return (
     <div>
-        <div className="font-extralight mx-auto text-center text-[#c0bdc5]">{day()}</div>
-            <div className="text-center px-5 p-2">
+        <div className="font-extralight text-center text-[#c0bdc5]">{day()}</div>
+            <div className="sm:p-3 lg:px-10 p-2">
               {<WeatherIcon code={props.list.weather[0].icon} size={45}  />}
             </div>
             <div className="flex justify-center text-[#f65282]">
