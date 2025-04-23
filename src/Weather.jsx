@@ -10,7 +10,7 @@ const Weather = (props) => {
   const [display, setDisplay] = useState(false);
   const [updateWeather, setUpdateWeather] = useState("");
   const [error, setError] = useState(null);
-
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     // Check for geolocation support
@@ -20,8 +20,9 @@ const Weather = (props) => {
           const { latitude, longitude } = position.coords;
           let apiKey = "923547b647729c17b92586beaa08e99c";
           let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`;
-  
-          axios.get(apiUrl)
+
+          axios
+            .get(apiUrl)
             .then(handleTemperature)
             .catch(() => {
               // If location request fails, fallback to default city
@@ -38,13 +39,11 @@ const Weather = (props) => {
       handleSearch();
     }
   }, []);
-  
-
-
 
   function handleTemperature(response) {
     setDisplay(true);
     setError(null);
+    setLoading(false);
 
     setUpdateWeather({
       temperature: response.data.main.temp,
@@ -68,6 +67,7 @@ const Weather = (props) => {
         setError("City doesn't exist! Enter a Valid city.");
         setUpdateWeather(null);
         setDisplay(true);
+        setLoading(false);
       });
   }
 
@@ -93,20 +93,24 @@ const Weather = (props) => {
               type="search"
               placeholder="Enter a city.."
               required
-              className="p-4 my-2 mx-2 border-gray-300 rounded-lg w-full bg-[#f8f7fd]"
+              className="p-4 my-2 mx-2 border-gray-300 rounded-lg  lg:w-full bg-[#f8f7fd]"
               onChange={updateCity}
             />
             <input
               type="submit"
               value="Search"
               required
-              className="w-45 cursor-pointer my-2 mx-2 bg-[#885ef2] sm:text-base text-white font-semibold  rounded-lg hover:bg-[#aa94eb] transition-colors"
+              className="w-45  cursor-pointer sm:text-sm my-2 mx-2 bg-[#885ef2] text-white font-semibold rounded-lg hover:bg-[#aa94eb] transition-colors"
             />
           </form>
         </header>
 
         {error && (
           <p className="text-[#885ef2] text-lg font-medium py-5">{error}</p>
+        )}
+
+        {loading && (
+          <p className="text-[#885ef2] py-5">Loading weather data...</p>
         )}
 
         {updateWeather && (
@@ -119,7 +123,7 @@ const Weather = (props) => {
     );
   } else {
     handleSearch();
-    return <p> Loading...</p>;
+    return <p className="text-[#885ef2]"> Loading...</p>;
   }
 };
 
